@@ -16,6 +16,7 @@ const barlow = Barlow({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://smoothieoperator.com.au"),
   title: "SMOOTHIE OPERATOR | Performance Smoothies",
   description:
     "Ready-to-blend, café-quality smoothie packs. Customise your protein, creatine, collagen and more — delivered cold-chain to your door.",

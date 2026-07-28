@@ -2,7 +2,7 @@
 
 A mobile-first online store for customisable performance smoothies. Built with Next.js (App Router), TypeScript, Tailwind CSS, Lucide icons, and Embla Carousel.
 
-Live at [logicarl.com/smoothieoperator](https://logicarl.com/smoothieoperator).
+Live at [smoothieoperator.com.au](https://smoothieoperator.com.au).
 
 ## Getting started
 
@@ -11,26 +11,21 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000/smoothieoperator](http://localhost:3000/smoothieoperator).
+Open [http://localhost:3000](http://localhost:3000).
 
 Copy `.env.local.example` to `.env.local` and configure the Google Sheets webhook for order capture (see `google-apps-script/Code.gs`).
 
-## Deployment
+## Deployment (Vercel)
 
-This app is deployed as a standalone Netlify site and proxied through the main [logicarl.com](https://logicarl.com) portfolio at `/smoothieoperator`.
-
-### Smoothie Operator (this repo)
-
-1. Create a new site on Netlify connected to this GitHub repo.
-2. Set the site name to `smoothie-operator` (or update the proxy URL in `web-portfolio/netlify.toml` to match).
-3. Add environment variables in Netlify:
+1. Import this repo at [vercel.com/new](https://vercel.com/new).
+2. Add environment variables:
    - `GOOGLE_SHEETS_WEBHOOK_URL`
    - `GOOGLE_SHEETS_WEBHOOK_SECRET` (optional)
-4. Deploy. The app uses `basePath: /smoothieoperator` and the Netlify Next.js plugin.
+3. Deploy.
+4. In Vercel → **Settings → Domains**, add `smoothieoperator.com.au` and `www.smoothieoperator.com.au`.
+5. Update your domain registrar's DNS with the records Vercel provides (typically an `A` record and/or `CNAME`).
 
-### logicarl.com proxy
-
-The main portfolio repo (`web-portfolio`) proxies `/smoothieoperator` to this Netlify site. Redeploy the portfolio after updating `netlify.toml`.
+No `basePath` or platform-specific config is required — Vercel detects Next.js automatically.
 
 ## Project structure
 
