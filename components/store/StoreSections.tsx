@@ -207,7 +207,7 @@ export default function StoreSections({
         </section>
 
         <section aria-label="Per serve" className="bg-terracotta-dark px-5 py-5 text-cream sm:px-8">
-          <ul className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-3 gap-y-2 text-center text-xs font-bold uppercase tracking-wide sm:text-sm">
+          <ul className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-3 gap-y-2 text-center text-xs font-bold tracking-wide sm:text-sm">
             {PUNCH.map((item, index) => (
               <li key={item} className="flex items-center gap-3">
                 <span>{item}</span>

@@ -42,9 +42,9 @@ export const STORE_MICRO = [
 export const STORE_TOP_BAR = `Cold-chain delivery · Packs of ${SERVES_PER_PACK} serves · Free shipping over ${formatAud(FREE_SHIPPING_THRESHOLD_CENTS)}`;
 
 export const PUNCH = [
-  "31 g protein per serve",
+  "31 g protein",
   "3 g creatine",
-  "Whole-food fruit & greens",
+  "282 Cal",
   "Blend both pouches in 30 seconds",
 ] as const;
 
@@ -72,7 +72,7 @@ export const BENEFITS = [
 ] as const;
 
 export const BENEFIT_NOTE =
-  "Provisional figures. The panel below lists 31.2 g protein, 10.8 g fibre and 1180 kJ per serve.";
+  "Provisional figures. Per serve as sold: 31 g protein, 3 g creatine and 282 Cal. The panel below lists 31.2 g protein, 10.8 g fibre and 1180 kJ (282 Cal).";
 
 export const HOW_TO = {
   title: "Two pouches. Thirty seconds.",
@@ -103,7 +103,7 @@ export const STORY = [
   {
     id: "different",
     title: "Built different: café flavour, training macros",
-    body: "Most “healthy” smoothies are either a juice bar treat or a chalky shake. Black Forest Powerhouse is built as a **formulated supplementary sports food**: whole-food fruit and greens in the frozen pouch, Athlete powder stack in the powder pouch. About **31 g protein** and **3 g creatine** per serve as sold — café flavour without the café queue.",
+    body: "Most “healthy” smoothies are either a juice bar treat or a chalky shake. Black Forest Powerhouse is built as a **formulated supplementary sports food**: whole-food fruit and greens in the frozen pouch, Athlete powder stack in the powder pouch. About **31 g protein**, **3 g creatine** and **282 Cal** per serve as sold — café flavour without the café queue.",
   },
   {
     id: "whole",
