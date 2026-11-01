@@ -15,12 +15,12 @@ import {
 
 function RecipeColumn({
   title,
-  chamber,
+  pouch,
 }: {
   title: string;
-  chamber: "frozen" | "dry";
+  pouch: "frozen" | "powder";
 }) {
-  const lines = SHARED_RECIPE.filter((line) => line.chamber === chamber);
+  const lines = SHARED_RECIPE.filter((line) => line.pouch === pouch);
 
   return (
     <div>
@@ -65,12 +65,13 @@ export default function FlavorMenu() {
           </p>
 
           <div className="mt-6 grid gap-6 sm:grid-cols-2">
-            <RecipeColumn title="Frozen chamber" chamber="frozen" />
-            <RecipeColumn title="Dry chamber" chamber="dry" />
+            <RecipeColumn title="Frozen pouch" pouch="frozen" />
+            <RecipeColumn title="Powder pouch" pouch="powder" />
           </div>
           <p className="mt-4 text-sm leading-relaxed text-ink/70">
-            {WHEY_COMPOSITION_NOTE} Each serve adds {ATHLETE_STACK.wpiGrams}g of
-            that whey and {CREATINE_GRAMS}g creatine monohydrate.
+            {WHEY_COMPOSITION_NOTE} Each serve is two pouches and adds{" "}
+            {ATHLETE_STACK.wpiGrams}g of that whey and {CREATINE_GRAMS}g creatine
+            monohydrate to the powder pouch.
           </p>
 
           <div className="mt-6 grid gap-3 sm:grid-cols-2">

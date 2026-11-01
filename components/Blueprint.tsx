@@ -33,7 +33,7 @@ const steps: Step[] = [
     number: "3",
     icon: Timer,
     title: "Blend in 30 seconds",
-    body: `Tear the twin-compartment pouch, tip the frozen chamber and the dry powders into a blender, add about ${MILK_ML} ml of milk or the fluid you like, and blend.`,
+    body: `Each serve is two pouches. Tip both pouches into a blender — the frozen fruit and veg, and the powder — add about ${MILK_ML} ml of milk or another fluid, and blend.`,
   },
 ];
 

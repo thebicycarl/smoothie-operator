@@ -9,14 +9,14 @@ import {
  * Estimated nutrition for one Black Forest serve.
  *
  * Figures are calculated from supplier nutrition panels and reference
- * databases. They are not a laboratory analysis of the finished pouch
+ * databases. They are not a laboratory analysis of the finished serve
  * and they are not a nutrition information panel.
  *
  * Shared base per serve:
  * - 50g frozen cherries
  * - 80g frozen blueberries
  * - 8g Macro Wholefoods Market cacao powder
- * - 15g baby spinach (packed in the frozen chamber)
+ * - 15g baby spinach (packed in the frozen pouch)
  * - 10g Macro Wholefoods Market hemp seed protein powder
  * - 10g Macro Wholefoods Market brown flaxseed meal
  *
@@ -34,7 +34,7 @@ type Ingredient = {
   id: string;
   name: string;
   grams: number;
-  chamber: "frozen" | "dry";
+  pouch: "frozen" | "powder";
   per100g: MacroPer100g;
 };
 
@@ -42,7 +42,7 @@ export type RecipeLine = {
   id: string;
   name: string;
   grams: number;
-  chamber: "frozen" | "dry";
+  pouch: "frozen" | "powder";
   label: string;
 };
 
@@ -51,7 +51,7 @@ const SHARED_INGREDIENTS: Ingredient[] = [
     id: "cherries",
     name: "frozen cherries",
     grams: 50,
-    chamber: "frozen",
+    pouch: "frozen",
     // USDA SR Legacy, sweet cherries, raw, per 100g. Unsweetened frozen fruit
     // is treated as equivalent for this estimate.
     per100g: { protein: 1.06, fibre: 2.1, fat: 0.2 },
@@ -60,7 +60,7 @@ const SHARED_INGREDIENTS: Ingredient[] = [
     id: "blueberries",
     name: "frozen blueberries",
     grams: 80,
-    chamber: "frozen",
+    pouch: "frozen",
     // USDA frozen unsweetened blueberries, per 100g.
     per100g: { protein: 0.42, fibre: 2.7, fat: 0.64 },
   },
@@ -68,7 +68,7 @@ const SHARED_INGREDIENTS: Ingredient[] = [
     id: "spinach",
     name: "baby spinach",
     grams: 15,
-    chamber: "frozen",
+    pouch: "frozen",
     // USDA raw spinach, per 100g, used as a proxy for baby spinach.
     per100g: { protein: 2.86, fibre: 2.2, fat: 0.39 },
   },
@@ -76,7 +76,7 @@ const SHARED_INGREDIENTS: Ingredient[] = [
     id: "cacao",
     name: "Macro Wholefoods Market cacao powder",
     grams: 8,
-    chamber: "dry",
+    pouch: "powder",
     // Woolworths Macro Organic Cacao Powder NIP, per 100g.
     per100g: { protein: 22.1, fibre: 27.7, fat: 15.2 },
   },
@@ -84,7 +84,7 @@ const SHARED_INGREDIENTS: Ingredient[] = [
     id: "hemp",
     name: "Macro Wholefoods Market hemp seed protein powder",
     grams: 10,
-    chamber: "dry",
+    pouch: "powder",
     // Woolworths Macro Hemp Seed Protein Powder NIP, per 100g.
     per100g: { protein: 46.5, fibre: 18.5, fat: 13.2 },
   },
@@ -92,7 +92,7 @@ const SHARED_INGREDIENTS: Ingredient[] = [
     id: "flax",
     name: "Macro Wholefoods Market brown flaxseed meal",
     grams: 10,
-    chamber: "dry",
+    pouch: "powder",
     // Woolworths Macro Organic Brown Flaxseed Meal NIP, per 100g.
     per100g: { protein: 21.6, fibre: 32.9, fat: 32.6 },
   },
@@ -244,7 +244,7 @@ export const SHARED_RECIPE: RecipeLine[] = SHARED_INGREDIENTS.map((ingredient) =
   id: ingredient.id,
   name: ingredient.name,
   grams: ingredient.grams,
-  chamber: ingredient.chamber,
+  pouch: ingredient.pouch,
   label: `${ingredient.grams}g ${ingredient.name}`,
 }));
 
@@ -260,7 +260,7 @@ export const SPORTS_FOOD_NOTICE = {
     "This food should be used in conjunction with an appropriate physical training or exercise program.",
   warning:
     "Not suitable for children under 15 years of age or pregnant women: Should only be used under medical or dietetic supervision.",
-  directions: `Blend one serve with about ${MILK_ML} ml of milk or another fluid. Recommended consumption is one serve per day. One serve is the one-day quantity, and it contains ${CREATINE_GRAMS}g of creatine monohydrate.`,
+  directions: `Tip both pouches into a blender and blend with about ${MILK_ML} ml of milk or another fluid. Recommended consumption is one serve per day. One serve is two pouches and the one-day quantity, and it contains ${CREATINE_GRAMS}g of creatine monohydrate.`,
 } as const;
 
 export const ALLERGEN_NOTE =
@@ -270,9 +270,9 @@ export const WHEY_COMPOSITION_NOTE =
   "The whey is Bulk Nutrients chocolate whey protein isolate, which includes cocoa, flavour and sucralose. Creatine is Bulk Nutrients creatine monohydrate.";
 
 export const METHODOLOGY_PARAGRAPHS = [
-  "These figures are estimates for one serve. They are not a laboratory test of the finished pouch, and they are not a nutrition information panel.",
+  "These figures are estimates for one serve. One serve is two pouches. They are not a laboratory test of the finished serve, and they are not a nutrition information panel.",
   `The shared base is ${SHARED_RECIPE.map((line) => line.label).join(", ")}. Fruit values assume unsweetened fruit. Baby spinach uses raw spinach reference data. Cacao, hemp protein and brown flaxseed meal use the Macro Wholefoods Market panels sold at Woolworths.`,
-  `Pouch protein adds Bulk Nutrients chocolate whey protein isolate at ${WPI_PROTEIN_PER_100G}g protein per 100g: ${ATHLETE_NUTRITION.wpiGrams}g on the Athlete stack. Calculated pouch protein is ${ATHLETE_NUTRITION.pouchDetail}. ${CREATINE_GRAMS}g creatine monohydrate is in the serve and is not protein, so it is not part of this protein figure.`,
+  `Protein before milk adds Bulk Nutrients chocolate whey protein isolate at ${WPI_PROTEIN_PER_100G}g protein per 100g: ${ATHLETE_NUTRITION.wpiGrams}g on the Athlete stack, in the powder pouch. Calculated protein in the two pouches, before milk, is ${ATHLETE_NUTRITION.pouchDetail}. ${CREATINE_GRAMS}g creatine monohydrate is in the powder pouch and is not protein, so it is not part of this protein figure.`,
   `Blended with ${MILK_ML} ml full cream milk (${format1(MILK_PROTEIN_PER_100ML_LOW)}–${format1(MILK_PROTEIN_PER_100ML_HIGH)}g protein per 100 ml, about ${format1(milkProteinLowGrams)}–${format1(milkProteinHighGrams)}g), the serve is ${ATHLETE_NUTRITION.withMilkDetail}.`,
   `Dietary fibre calculates to ${NUTRITION.fibreDetail} from the shared base. Milk, the whey isolate and creatine are not added to that figure. It is shown as ${NUTRITION.fibreLabel}.`,
   `ALA is not declared on the Macro flaxseed or hemp panels. Flaxseed meal fat (${format2(flaxFatGrams)}g in the 10g serve) is scaled by the USDA flaxseed ratio of alpha-linolenic acid to total fat (22.813g / 42.16g per 100g, about ${Math.round(FLAX_ALA_FRACTION_POINT * 100)}%), with a 50–60% range. Hemp protein fat (${format2(hempFatGrams)}g) is counted at 15–25% ALA. The point estimate is ${format2(alaPointGrams)}g, so the page says ${NUTRITION.alaLabel}, within an estimated range of ${NUTRITION.alaRangeLabel}. Most of that ALA is from the brown flaxseed meal.`,

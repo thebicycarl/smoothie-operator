@@ -112,7 +112,7 @@ export default function StackConfigurator() {
               </span>
             </span>
             <span className="mt-1 block text-sm leading-relaxed text-ink/70">
-              Optional. +{COLLAGEN_GRAMS}g collagen peptides in the dry chamber
+              Optional. +{COLLAGEN_GRAMS}g collagen peptides in the powder pouch
               of each serve. That is {NUTRITION.collagenProteinLabel} of extra
               protein. Collagen is not a complete protein, so it sits on top of
               the Athlete figure.

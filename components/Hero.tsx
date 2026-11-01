@@ -45,7 +45,7 @@ export default function Hero() {
               {ATHLETE_STACK.wpiGrams}g chocolate whey protein isolate, and{" "}
               {CREATINE_GRAMS}g creatine monohydrate. Packs of {SERVES_PER_PACK}{" "}
               serves ({formatAud(ATHLETE_STACK.priceCents * SERVES_PER_PACK)}).
-              Rip, pour, blend.
+              Each serve is two pouches. Tip both and blend.
             </p>
 
             <div className="mt-7 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row md:items-start">
@@ -71,7 +71,7 @@ export default function Hero() {
               src="/images/product-hero2.png"
               width={400}
               height={400}
-              alt="Smoothie Operator packet"
+              alt="Smoothie Operator Black Forest Powerhouse"
               priority
               className="relative z-10 w-[280px] drop-shadow-2xl sm:w-[400px]"
               style={{ width: "auto", height: "auto" }}
