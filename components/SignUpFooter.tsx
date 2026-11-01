@@ -11,7 +11,11 @@ import {
   REPEAT_ORDER_OPTIONS,
   SHIPPING_RULE_LABEL,
 } from "@/lib/order";
-import { MILK_ML, nutritionForStack } from "@/lib/nutrition";
+import {
+  ATHLETE_ENERGY_LABEL,
+  MILK_ML,
+  nutritionForStack,
+} from "@/lib/nutrition";
 
 const initialState: OrderState = { success: false };
 
@@ -63,8 +67,8 @@ function OrderSummary() {
             <dd className="font-semibold tabular-nums">{quote.serves}</dd>
           </div>
           <p className="mt-3 text-[11px] leading-relaxed text-cream/65">
-            {nutrition.pouchLabel} protein per serve, {nutrition.withMilkLabel}{" "}
-            with {MILK_ML} ml full cream milk.
+            {nutrition.pouchLabel} protein per serve. Energy {ATHLETE_ENERGY_LABEL}.{" "}
+            {nutrition.withMilkLabel} with {MILK_ML} ml full cream milk.
           </p>
         </div>
 

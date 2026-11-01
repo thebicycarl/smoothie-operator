@@ -251,6 +251,13 @@ export const SHARED_RECIPE: RecipeLine[] = SHARED_INGREDIENTS.map((ingredient) =
 export const WPI_LABEL = "Bulk Nutrients chocolate whey protein isolate";
 export const CREATINE_LABEL = "Bulk Nutrients creatine monohydrate";
 
+/** Provisional as-sold Athlete serve. Not calculated from the panels on this page. */
+export const ATHLETE_ENERGY_KJ = 1180;
+export const ATHLETE_ENERGY_CAL = 282;
+export const ATHLETE_MARKETING_PROTEIN_GRAMS = 31;
+export const ATHLETE_STATS_LINE = `${ATHLETE_MARKETING_PROTEIN_GRAMS} g protein · ${CREATINE_GRAMS} g creatine · ${ATHLETE_ENERGY_CAL} Cal`;
+export const ATHLETE_ENERGY_LABEL = `${ATHLETE_ENERGY_KJ} kJ (${ATHLETE_ENERGY_CAL} Cal)`;
+
 export const ATHLETE_CREATINE_NOTE = `Creatine is capped at ${CREATINE_GRAMS}g because of Australian food regulations (Food Standards Code Standard 2.9.4 and Schedule 29). Added creatine in a formulated supplementary sports food is limited to ${CREATINE_GRAMS}g in a one-day quantity. Each serve contains ${CREATINE_GRAMS}g creatine monohydrate and ${ATHLETE_NUTRITION.wpiGrams}g chocolate whey protein isolate.`;
 
 export const SPORTS_FOOD_NOTICE = {
@@ -277,4 +284,5 @@ export const METHODOLOGY_PARAGRAPHS = [
   `Dietary fibre calculates to ${NUTRITION.fibreDetail} from the shared base. Milk, the whey isolate and creatine are not added to that figure. It is shown as ${NUTRITION.fibreLabel}.`,
   `ALA is not declared on the Macro flaxseed or hemp panels. Flaxseed meal fat (${format2(flaxFatGrams)}g in the 10g serve) is scaled by the USDA flaxseed ratio of alpha-linolenic acid to total fat (22.813g / 42.16g per 100g, about ${Math.round(FLAX_ALA_FRACTION_POINT * 100)}%), with a 50–60% range. Hemp protein fat (${format2(hempFatGrams)}g) is counted at 15–25% ALA. The point estimate is ${format2(alaPointGrams)}g, so the page says ${NUTRITION.alaLabel}, within an estimated range of ${NUTRITION.alaRangeLabel}. Most of that ALA is from the brown flaxseed meal.`,
   `Collagen, if selected, is ${COLLAGEN_GRAMS}g of collagen peptides. At a typical ${COLLAGEN_PROTEIN_PER_100G}g protein per 100g, that is ${NUTRITION.collagenProteinLabel} of extra protein. Collagen is not a complete protein, and it is not included in the Athlete protein figure above.`,
+  `Energy on the marketing lines is the provisional as-sold figure for one Athlete serve: ${ATHLETE_ENERGY_LABEL}. It is not estimated from the panels above.`,
 ];

@@ -5,6 +5,7 @@ import {
   formatAud,
   SERVES_PER_PACK,
 } from "@/lib/order";
+import { ATHLETE_STATS_LINE } from "@/lib/nutrition";
 
 export default function Hero() {
   return (
@@ -46,6 +47,9 @@ export default function Hero() {
               {CREATINE_GRAMS}g creatine monohydrate. Packs of {SERVES_PER_PACK}{" "}
               serves ({formatAud(ATHLETE_STACK.priceCents * SERVES_PER_PACK)}).
               Each serve is two pouches. Tip both and blend.
+            </p>
+            <p className="mt-4 text-sm font-semibold tracking-wide text-terracotta-dark">
+              {ATHLETE_STATS_LINE}
             </p>
 
             <div className="mt-7 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row md:items-start">

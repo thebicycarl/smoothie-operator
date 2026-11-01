@@ -7,7 +7,7 @@ import {
   formatAud,
   SERVES_PER_PACK,
 } from "@/lib/order";
-import { MILK_ML } from "@/lib/nutrition";
+import { ATHLETE_STATS_LINE, MILK_ML } from "@/lib/nutrition";
 
 type Step = {
   number: string;
@@ -21,7 +21,7 @@ const steps: Step[] = [
     number: "1",
     icon: Leaf,
     title: "The Athlete stack",
-    body: `Black Forest Powerhouse with ${ATHLETE_STACK.wpiGrams}g of chocolate whey protein isolate and ${CREATINE_GRAMS}g of creatine monohydrate.`,
+    body: `Black Forest Powerhouse with ${ATHLETE_STACK.wpiGrams}g of chocolate whey protein isolate and ${CREATINE_GRAMS}g of creatine monohydrate. ${ATHLETE_STATS_LINE}.`,
   },
   {
     number: "2",

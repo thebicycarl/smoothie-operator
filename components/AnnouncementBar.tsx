@@ -5,9 +5,11 @@ import {
   FREE_SHIPPING_THRESHOLD_CENTS,
   SERVES_PER_PACK,
 } from "@/lib/order";
+import { ATHLETE_STATS_LINE } from "@/lib/nutrition";
 
 const messages = [
   "Pilot flavour: Black Forest Powerhouse",
+  ATHLETE_STATS_LINE,
   `Athlete ${formatAud(ATHLETE_STACK.priceCents)} per serve`,
   `Packs of ${SERVES_PER_PACK} · ${formatAud(ATHLETE_STACK.priceCents * SERVES_PER_PACK)} · collagen +${formatAud(COLLAGEN_CENTS_PER_SERVE)}`,
   `Free shipping over ${formatAud(FREE_SHIPPING_THRESHOLD_CENTS)}`,

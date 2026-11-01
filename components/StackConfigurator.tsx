@@ -17,7 +17,10 @@ import {
 } from "@/lib/order";
 import {
   ATHLETE_CREATINE_NOTE,
+  ATHLETE_ENERGY_CAL,
+  ATHLETE_ENERGY_LABEL,
   ATHLETE_NUTRITION,
+  ATHLETE_STATS_LINE,
   CREATINE_LABEL,
   NUTRITION,
   WPI_LABEL,
@@ -46,6 +49,12 @@ function AthletePanel() {
         </li>
         <li>Black Forest Powerhouse base in every serve</li>
       </ul>
+      <p className="mt-4 text-sm font-semibold tracking-wide text-terracotta-dark">
+        {ATHLETE_STATS_LINE}
+      </p>
+      <p className="mt-1 text-xs leading-relaxed text-ink/60">
+        Energy {ATHLETE_ENERGY_LABEL} per serve.
+      </p>
       <p className="mt-4 text-sm font-semibold leading-relaxed text-terracotta-dark">
         {ATHLETE_NUTRITION.pouchLabel} protein per serve, and{" "}
         {ATHLETE_NUTRITION.withMilkLabel} with {NUTRITION.milkMl} ml full cream
@@ -182,7 +191,7 @@ export default function StackConfigurator() {
           </div>
           <p className="mt-1 text-xs leading-relaxed text-cream/75">
             {quote.wpiGrams}g chocolate WPI · {quote.creatineGrams}g creatine
-            monohydrate
+            monohydrate · {ATHLETE_ENERGY_CAL} Cal per serve
             {quote.collagen
               ? ` · +${COLLAGEN_GRAMS}g collagen`
               : " · no collagen"}

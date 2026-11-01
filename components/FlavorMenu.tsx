@@ -7,6 +7,8 @@ import {
 } from "@/lib/order";
 import {
   ALLERGEN_NOTE,
+  ATHLETE_ENERGY_LABEL,
+  ATHLETE_STATS_LINE,
   METHODOLOGY_PARAGRAPHS,
   NUTRITION,
   SHARED_RECIPE,
@@ -72,6 +74,13 @@ export default function FlavorMenu() {
             {WHEY_COMPOSITION_NOTE} Each serve is two pouches and adds{" "}
             {ATHLETE_STACK.wpiGrams}g of that whey and {CREATINE_GRAMS}g creatine
             monohydrate to the powder pouch.
+          </p>
+
+          <p className="mt-6 text-sm font-semibold tracking-wide text-terracotta-dark">
+            {ATHLETE_STATS_LINE}
+          </p>
+          <p className="mt-1 text-xs leading-relaxed text-ink/60">
+            Energy {ATHLETE_ENERGY_LABEL} per serve.
           </p>
 
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
