@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces, Barlow } from "next/font/google";
 import "./globals.css";
+import { ATHLETE_STATS_LINE } from "@/lib/nutrition";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -17,9 +18,9 @@ const barlow = Barlow({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://smoothieoperator.com.au"),
-  title: "SMOOTHIE OPERATOR | Performance Smoothies",
+  title: "SMOOTHIE OPERATOR | Black Forest Powerhouse",
   description:
-    "Ready-to-blend, café-quality smoothie packs. Customise your protein, creatine, collagen and more — delivered cold-chain to your door.",
+    `Black Forest Powerhouse smoothie serves on the Athlete stack. ${ATHLETE_STATS_LINE}. Packs of 6 serves, cold-chain delivery. Formulated supplementary sports food.`,
 };
 
 export default function RootLayout({

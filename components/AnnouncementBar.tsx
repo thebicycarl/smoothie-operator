@@ -1,12 +1,23 @@
+import {
+  ATHLETE_STACK,
+  COLLAGEN_CENTS_PER_SERVE,
+  formatAud,
+  FREE_SHIPPING_THRESHOLD_CENTS,
+  SERVES_PER_PACK,
+} from "@/lib/order";
+import { ATHLETE_STATS_LINE } from "@/lib/nutrition";
+
 const messages = [
-  "Order online · cold-chain delivery to your door",
-  "Free shipping on orders over $150",
-  "Pick your flavours · customise your stack",
-  "Now shipping across Sydney",
+  "Pilot flavour: Black Forest Powerhouse",
+  ATHLETE_STATS_LINE,
+  `Athlete ${formatAud(ATHLETE_STACK.priceCents)} per serve`,
+  `Packs of ${SERVES_PER_PACK} · ${formatAud(ATHLETE_STACK.priceCents * SERVES_PER_PACK)} · collagen +${formatAud(COLLAGEN_CENTS_PER_SERVE)}`,
+  `Free shipping over ${formatAud(FREE_SHIPPING_THRESHOLD_CENTS)}`,
+  "Toowoomba earlybird: free shipping",
+  "More flavours coming soon",
 ];
 
 export default function AnnouncementBar() {
-  // Duplicate the list so the marquee can loop seamlessly (-50% = one full set).
   const loop = [...messages, ...messages];
 
   return (
