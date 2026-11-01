@@ -260,7 +260,7 @@ export const SPORTS_FOOD_NOTICE = {
     "This food should be used in conjunction with an appropriate physical training or exercise program.",
   warning:
     "Not suitable for children under 15 years of age or pregnant women: Should only be used under medical or dietetic supervision.",
-  directions: `Blend one serve with about ${MILK_ML} ml of milk or another fluid. Recommended consumption is one serve per day. One serve is the one-day quantity, and it contains ${CREATINE_GRAMS}g of creatine monohydrate.`,
+  directions: `Blend both pouches with about ${MILK_ML} ml of milk or another fluid. Recommended consumption is one serve per day. One serve is the one-day quantity, and it contains ${CREATINE_GRAMS}g of creatine monohydrate.`,
 } as const;
 
 export const ALLERGEN_NOTE =
@@ -270,9 +270,9 @@ export const WHEY_COMPOSITION_NOTE =
   "The whey is Bulk Nutrients chocolate whey protein isolate, which includes cocoa, flavour and sucralose. Creatine is Bulk Nutrients creatine monohydrate.";
 
 export const METHODOLOGY_PARAGRAPHS = [
-  "These figures are estimates for one serve. They are not a laboratory test of the finished pouch, and they are not a nutrition information panel.",
+  "These figures are estimates for one serve. They are not a laboratory test of the finished pouches, and they are not a nutrition information panel.",
   `The shared base is ${SHARED_RECIPE.map((line) => line.label).join(", ")}. Fruit values assume unsweetened fruit. Baby spinach uses raw spinach reference data. Cacao, hemp protein and brown flaxseed meal use the Macro Wholefoods Market panels sold at Woolworths.`,
-  `Pouch protein adds Bulk Nutrients chocolate whey protein isolate at ${WPI_PROTEIN_PER_100G}g protein per 100g: ${ATHLETE_NUTRITION.wpiGrams}g on the Athlete stack. Calculated pouch protein is ${ATHLETE_NUTRITION.pouchDetail}. ${CREATINE_GRAMS}g creatine monohydrate is in the serve and is not protein, so it is not part of this protein figure.`,
+  `Protein per serve adds Bulk Nutrients chocolate whey protein isolate at ${WPI_PROTEIN_PER_100G}g protein per 100g: ${ATHLETE_NUTRITION.wpiGrams}g on the Athlete stack. Calculated protein per serve is ${ATHLETE_NUTRITION.pouchDetail}. ${CREATINE_GRAMS}g creatine monohydrate is in the serve and is not protein, so it is not part of this protein figure.`,
   `Blended with ${MILK_ML} ml full cream milk (${format1(MILK_PROTEIN_PER_100ML_LOW)}–${format1(MILK_PROTEIN_PER_100ML_HIGH)}g protein per 100 ml, about ${format1(milkProteinLowGrams)}–${format1(milkProteinHighGrams)}g), the serve is ${ATHLETE_NUTRITION.withMilkDetail}.`,
   `Dietary fibre calculates to ${NUTRITION.fibreDetail} from the shared base. Milk, the whey isolate and creatine are not added to that figure. It is shown as ${NUTRITION.fibreLabel}.`,
   `ALA is not declared on the Macro flaxseed or hemp panels. Flaxseed meal fat (${format2(flaxFatGrams)}g in the 10g serve) is scaled by the USDA flaxseed ratio of alpha-linolenic acid to total fat (22.813g / 42.16g per 100g, about ${Math.round(FLAX_ALA_FRACTION_POINT * 100)}%), with a 50–60% range. Hemp protein fat (${format2(hempFatGrams)}g) is counted at 15–25% ALA. The point estimate is ${format2(alaPointGrams)}g, so the page says ${NUTRITION.alaLabel}, within an estimated range of ${NUTRITION.alaRangeLabel}. Most of that ALA is from the brown flaxseed meal.`,

@@ -5,7 +5,7 @@
  * columns will not line up; use a new tab if you still need those rows.
  *
  * Name | Email | Address | Suburb | Flavour | Stack | Chocolate WPI (g) |
- * Creatine (g) | Collagen | Packs (×5) | Serves | Price per serve |
+ * Creatine (g) | Collagen | Packs (×6) | Serves | Price per serve |
  * Subtotal | Shipping | Shipping rule | Order total | Repeat order
  *
  * Prices are recomputed here from stack, collagen, packs and locality.
@@ -26,7 +26,7 @@ var CREATINE_GRAMS = 3;
 var COLLAGEN_GRAMS = 10;
 var COLLAGEN_CENTS = 100;
 var COLLAGEN_ON = "+" + COLLAGEN_GRAMS + "g collagen peptides";
-var SERVES_PER_PACK = 5;
+var SERVES_PER_PACK = 6;
 var PACK_MIN = 1;
 var PACK_MAX = 20;
 var SHIPPING_CENTS = 1450;

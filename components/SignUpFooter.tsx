@@ -8,6 +8,7 @@ import {
   COLLAGEN_GRAMS,
   formatAud,
   freeShippingNudge,
+  packServesLabel,
   REPEAT_ORDER_OPTIONS,
   SERVES_PER_PACK,
   SHIPPING_RULE_LABEL,
@@ -64,11 +65,11 @@ function OrderSummary() {
               Packs
             </dt>
             <dd className="font-semibold tabular-nums">
-              {quote.packs} × {SERVES_PER_PACK} ({quote.serves} serves)
+              {packServesLabel(quote.packs)}
             </dd>
           </div>
           <p className="mt-3 text-[11px] leading-relaxed text-cream/65">
-            {nutrition.pouchLabel} protein in the pouch, {nutrition.withMilkLabel}{" "}
+            {nutrition.pouchLabel} protein per serve, {nutrition.withMilkLabel}{" "}
             with {MILK_ML} ml full cream milk.
           </p>
         </div>
@@ -288,7 +289,8 @@ export default function SignUpFooter() {
             Ready to order?
           </h2>
           <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-cream/85">
-            Check the stack, the packs of five, and where it is going. This
+            Check the stack, the packs of {SERVES_PER_PACK} serves, and where it
+            is going. This
             pilot order does not take payment. We will confirm delivery with
             you.
           </p>
@@ -325,6 +327,12 @@ export default function SignUpFooter() {
           <span className="text-xs text-cream/70">
             © 2026 SMOOTHIE OPERATOR
           </span>
+          <a
+            href="/store"
+            className="text-xs font-semibold text-amber transition duration-300 ease-in-out hover:text-cream"
+          >
+            Alternate storefront
+          </a>
           <a
             href="#"
             className="text-xs text-cream/70 transition duration-300 ease-in-out hover:text-cream"

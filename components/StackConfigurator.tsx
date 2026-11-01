@@ -11,6 +11,7 @@ import {
   formatAud,
   freeShippingNudge,
   PACK_MAX,
+  packServesLabel,
   SERVES_PER_PACK,
   shippingOfferCopy,
   SHIPPING_RULE_LABEL,
@@ -34,8 +35,8 @@ function AthletePanel() {
         <span className="text-base font-semibold text-ink/60"> / serve</span>
       </p>
       <p className="mt-1 text-sm text-ink/60">
-        {formatAud(ATHLETE_STACK.priceCents * SERVES_PER_PACK)} per pack of{" "}
-        {SERVES_PER_PACK}
+        {formatAud(ATHLETE_STACK.priceCents * SERVES_PER_PACK)} ·{" "}
+        {packServesLabel(1).toLowerCase()}
       </p>
       <ul className="mt-4 space-y-1.5 text-sm leading-relaxed text-ink/80">
         <li>
@@ -44,10 +45,10 @@ function AthletePanel() {
         <li>
           {CREATINE_GRAMS}g {CREATINE_LABEL}
         </li>
-        <li>Black Forest Powerhouse base in every pouch</li>
+        <li>Black Forest Powerhouse base in every serve</li>
       </ul>
       <p className="mt-4 text-sm font-semibold leading-relaxed text-terracotta-dark">
-        {ATHLETE_NUTRITION.pouchLabel} protein in the pouch, and{" "}
+        {ATHLETE_NUTRITION.pouchLabel} protein per serve, and{" "}
         {ATHLETE_NUTRITION.withMilkLabel} with {NUTRITION.milkMl} ml full cream
         milk.
       </p>
@@ -79,7 +80,7 @@ export default function StackConfigurator() {
         <p className="mx-auto mt-4 max-w-2xl text-center text-base leading-relaxed text-ink/70">
           The only stack in this pilot. {ATHLETE_STACK.wpiGrams}g chocolate whey
           protein isolate and {CREATINE_GRAMS}g creatine monohydrate on the
-          Black Forest base. Sold in packs of {SERVES_PER_PACK} only.
+          Black Forest base. Sold in packs of {SERVES_PER_PACK} serves only.
         </p>
         <p className="mx-auto mt-3 max-w-2xl text-center text-sm leading-relaxed text-ink/60">
           {NUTRITION.milkAssumption}
@@ -112,7 +113,7 @@ export default function StackConfigurator() {
               </span>
             </span>
             <span className="mt-1 block text-sm leading-relaxed text-ink/70">
-              Optional. +{COLLAGEN_GRAMS}g collagen peptides in the dry chamber
+              Optional. +{COLLAGEN_GRAMS}g collagen peptides in the powder pouch
               of each serve. That is {NUTRITION.collagenProteinLabel} of extra
               protein. Collagen is not a complete protein, so it sits on top of
               the Athlete figure.
@@ -124,7 +125,7 @@ export default function StackConfigurator() {
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
               <h3 className="font-display text-xl font-semibold text-terracotta-dark">
-                Packs of {SERVES_PER_PACK}
+                {packServesLabel(1)}
               </h3>
               <p className="mt-1 text-sm text-ink/70">
                 {quote.packs} {quote.packs === 1 ? "pack" : "packs"} ·{" "}
@@ -177,7 +178,7 @@ export default function StackConfigurator() {
               {quote.flavourName} · {quote.stack.name}
             </span>
             <span className="text-sm tabular-nums text-cream/80">
-              {quote.packs} × {SERVES_PER_PACK} serves
+              {packServesLabel(quote.packs)}
             </span>
           </div>
           <p className="mt-1 text-xs leading-relaxed text-cream/75">

@@ -1,5 +1,10 @@
 import { COMING_SOON_FLAVORS, AVAILABLE_FLAVOR } from "@/lib/flavors";
-import { ATHLETE_STACK, CREATINE_GRAMS, formatAud } from "@/lib/order";
+import {
+  ATHLETE_STACK,
+  CREATINE_GRAMS,
+  formatAud,
+  SERVES_PER_PACK,
+} from "@/lib/order";
 import {
   ALLERGEN_NOTE,
   METHODOLOGY_PARAGRAPHS,
@@ -47,7 +52,8 @@ export default function FlavorMenu() {
 
         <article className="mt-10 rounded-3xl border border-brown/15 bg-cream-card p-6 sm:p-8">
           <span className="inline-block rounded-full bg-amber/25 px-2.5 py-1 text-xs font-bold text-terracotta-dark">
-            On sale · {formatAud(ATHLETE_STACK.priceCents)}/serve · packs of 5
+            On sale · {formatAud(ATHLETE_STACK.priceCents)}/serve · packs of{" "}
+            {SERVES_PER_PACK} serves
           </span>
           <h3 className="mt-4 font-display text-3xl font-semibold text-terracotta-dark">
             {AVAILABLE_FLAVOR.name}
@@ -59,8 +65,8 @@ export default function FlavorMenu() {
           </p>
 
           <div className="mt-6 grid gap-6 sm:grid-cols-2">
-            <RecipeColumn title="Frozen chamber" chamber="frozen" />
-            <RecipeColumn title="Dry chamber" chamber="dry" />
+            <RecipeColumn title="Frozen pouch" chamber="frozen" />
+            <RecipeColumn title="Powder pouch" chamber="dry" />
           </div>
           <p className="mt-4 text-sm leading-relaxed text-ink/70">
             {WHEY_COMPOSITION_NOTE} Each serve adds {ATHLETE_STACK.wpiGrams}g of

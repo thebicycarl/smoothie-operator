@@ -26,14 +26,14 @@ const steps: Step[] = [
   {
     number: "2",
     icon: Package,
-    title: "Add packs of five",
+    title: `Pack of ${SERVES_PER_PACK} serves`,
     body: `Each pack is ${SERVES_PER_PACK} serves. Order one pack or more. Collagen peptides are optional: +${COLLAGEN_GRAMS}g and +${formatAud(COLLAGEN_CENTS_PER_SERVE)} per serve.`,
   },
   {
     number: "3",
     icon: Timer,
     title: "Blend in 30 seconds",
-    body: `Tear the twin-compartment pouch, tip the frozen chamber and the dry powders into a blender, add about ${MILK_ML} ml of milk or the fluid you like, and blend.`,
+    body: `Open the frozen fruit and greens pouch and the powder pouch, tip both pouches into a blender, add about ${MILK_ML} ml of milk or the fluid you like, and blend.`,
   },
 ];
 
@@ -45,7 +45,7 @@ export default function Blueprint() {
           How to order
         </h2>
         <p className="mx-auto mt-4 max-w-md text-center text-base text-ink/70">
-          One flavour, the Athlete stack, packs of five.
+          One flavour, the Athlete stack, packs of {SERVES_PER_PACK} serves.
         </p>
 
         <div className="mt-14 flex flex-col gap-6 md:grid md:grid-cols-3 md:gap-6">

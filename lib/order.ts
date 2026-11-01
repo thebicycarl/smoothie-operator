@@ -1,6 +1,12 @@
 import { AVAILABLE_FLAVOR } from "@/lib/flavors";
 
-export const SERVES_PER_PACK = 5;
+export const SERVES_PER_PACK = 6;
+
+/** Customer-facing pack name. Counts serves, never pouches. */
+export function packServesLabel(packs = 1): string {
+  if (packs === 1) return `Pack of ${SERVES_PER_PACK} serves`;
+  return `${packs} packs of ${SERVES_PER_PACK} serves`;
+}
 /** Pilot checkout guard. The product itself is sold as 1 or more packs. */
 export const PACK_MIN = 1;
 export const PACK_MAX = 20;
