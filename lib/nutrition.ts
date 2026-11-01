@@ -20,8 +20,7 @@ import {
  * - 10g Macro Wholefoods Market hemp seed protein powder
  * - 10g Macro Wholefoods Market brown flaxseed meal
  *
- * Everyday adds 15g Bulk Nutrients chocolate WPI and 3g creatine monohydrate.
- * Athlete adds 25g Bulk Nutrients chocolate WPI and 3g creatine monohydrate.
+ * The Athlete stack adds 25g Bulk Nutrients chocolate WPI and 3g creatine monohydrate.
  * Collagen, when selected, adds 10g collagen peptides.
  */
 
@@ -214,11 +213,11 @@ function stackNutrition(id: StackId): StackNutrition {
   };
 }
 
-export const EVERYDAY_NUTRITION = stackNutrition("everyday");
 export const ATHLETE_NUTRITION = stackNutrition("athlete");
 
 export function nutritionForStack(id: StackId): StackNutrition {
-  return id === "athlete" ? ATHLETE_NUTRITION : EVERYDAY_NUTRITION;
+  getStack(id);
+  return ATHLETE_NUTRITION;
 }
 
 const collagenProteinGrams = scaled(COLLAGEN_PROTEIN_PER_100G, COLLAGEN_GRAMS);
@@ -227,7 +226,7 @@ export const NUTRITION = {
   fibreGrams: sharedFibreGrams,
   fibreLabel: aboutGrams(sharedFibreGrams),
   fibreDetail: `${format1(sharedFibreGrams)}g`,
-  fibreHint: "Estimated from the ingredient list. The same on both stacks.",
+  fibreHint: "Estimated from the ingredient list for each serve.",
   alaPointGrams,
   alaLowGrams,
   alaHighGrams,
@@ -252,9 +251,7 @@ export const SHARED_RECIPE: RecipeLine[] = SHARED_INGREDIENTS.map((ingredient) =
 export const WPI_LABEL = "Bulk Nutrients chocolate whey protein isolate";
 export const CREATINE_LABEL = "Bulk Nutrients creatine monohydrate";
 
-export const ATHLETE_CREATINE_NOTE = `Creatine is capped at ${CREATINE_GRAMS}g because of Australian food regulations (Food Standards Code Standard 2.9.4 and Schedule 29). Added creatine in a formulated supplementary sports food is limited to ${CREATINE_GRAMS}g in a one-day quantity. Both Everyday and Athlete include ${CREATINE_GRAMS}g creatine monohydrate per serve. Athlete has more protein because it contains ${ATHLETE_NUTRITION.wpiGrams}g of chocolate whey protein isolate, and Everyday contains ${EVERYDAY_NUTRITION.wpiGrams}g.`;
-
-export const EVERYDAY_CREATINE_LINE = `Includes ${CREATINE_GRAMS}g creatine monohydrate, the same amount as Athlete.`;
+export const ATHLETE_CREATINE_NOTE = `Creatine is capped at ${CREATINE_GRAMS}g because of Australian food regulations (Food Standards Code Standard 2.9.4 and Schedule 29). Added creatine in a formulated supplementary sports food is limited to ${CREATINE_GRAMS}g in a one-day quantity. Each serve contains ${CREATINE_GRAMS}g creatine monohydrate and ${ATHLETE_NUTRITION.wpiGrams}g chocolate whey protein isolate.`;
 
 export const SPORTS_FOOD_NOTICE = {
   name: "Formulated supplementary sports food",
@@ -275,9 +272,9 @@ export const WHEY_COMPOSITION_NOTE =
 export const METHODOLOGY_PARAGRAPHS = [
   "These figures are estimates for one serve. They are not a laboratory test of the finished pouch, and they are not a nutrition information panel.",
   `The shared base is ${SHARED_RECIPE.map((line) => line.label).join(", ")}. Fruit values assume unsweetened fruit. Baby spinach uses raw spinach reference data. Cacao, hemp protein and brown flaxseed meal use the Macro Wholefoods Market panels sold at Woolworths.`,
-  `Pouch protein adds Bulk Nutrients chocolate whey protein isolate at ${WPI_PROTEIN_PER_100G}g protein per 100g: ${EVERYDAY_NUTRITION.wpiGrams}g on Everyday and ${ATHLETE_NUTRITION.wpiGrams}g on Athlete. Calculated pouch protein is ${EVERYDAY_NUTRITION.pouchDetail} on Everyday and ${ATHLETE_NUTRITION.pouchDetail} on Athlete. ${CREATINE_GRAMS}g creatine monohydrate is in both stacks and is not protein, so it is not part of these protein figures.`,
-  `Blended with ${MILK_ML} ml full cream milk (${format1(MILK_PROTEIN_PER_100ML_LOW)}–${format1(MILK_PROTEIN_PER_100ML_HIGH)}g protein per 100 ml, about ${format1(milkProteinLowGrams)}–${format1(milkProteinHighGrams)}g), Everyday is ${EVERYDAY_NUTRITION.withMilkDetail} and Athlete is ${ATHLETE_NUTRITION.withMilkDetail}.`,
+  `Pouch protein adds Bulk Nutrients chocolate whey protein isolate at ${WPI_PROTEIN_PER_100G}g protein per 100g: ${ATHLETE_NUTRITION.wpiGrams}g on the Athlete stack. Calculated pouch protein is ${ATHLETE_NUTRITION.pouchDetail}. ${CREATINE_GRAMS}g creatine monohydrate is in the serve and is not protein, so it is not part of this protein figure.`,
+  `Blended with ${MILK_ML} ml full cream milk (${format1(MILK_PROTEIN_PER_100ML_LOW)}–${format1(MILK_PROTEIN_PER_100ML_HIGH)}g protein per 100 ml, about ${format1(milkProteinLowGrams)}–${format1(milkProteinHighGrams)}g), the serve is ${ATHLETE_NUTRITION.withMilkDetail}.`,
   `Dietary fibre calculates to ${NUTRITION.fibreDetail} from the shared base. Milk, the whey isolate and creatine are not added to that figure. It is shown as ${NUTRITION.fibreLabel}.`,
   `ALA is not declared on the Macro flaxseed or hemp panels. Flaxseed meal fat (${format2(flaxFatGrams)}g in the 10g serve) is scaled by the USDA flaxseed ratio of alpha-linolenic acid to total fat (22.813g / 42.16g per 100g, about ${Math.round(FLAX_ALA_FRACTION_POINT * 100)}%), with a 50–60% range. Hemp protein fat (${format2(hempFatGrams)}g) is counted at 15–25% ALA. The point estimate is ${format2(alaPointGrams)}g, so the page says ${NUTRITION.alaLabel}, within an estimated range of ${NUTRITION.alaRangeLabel}. Most of that ALA is from the brown flaxseed meal.`,
-  `Collagen, if selected, is ${COLLAGEN_GRAMS}g of collagen peptides. At a typical ${COLLAGEN_PROTEIN_PER_100G}g protein per 100g, that is ${NUTRITION.collagenProteinLabel} of extra protein. Collagen is not a complete protein, and it is not included in the Everyday or Athlete figures above.`,
+  `Collagen, if selected, is ${COLLAGEN_GRAMS}g of collagen peptides. At a typical ${COLLAGEN_PROTEIN_PER_100G}g protein per 100g, that is ${NUTRITION.collagenProteinLabel} of extra protein. Collagen is not a complete protein, and it is not included in the Athlete protein figure above.`,
 ];

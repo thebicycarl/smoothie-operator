@@ -60,7 +60,7 @@ export async function submitOrder(
   }
 
   if (!isStackId(stackRaw)) {
-    return { success: false, error: "Please choose Everyday or Athlete." };
+    return { success: false, error: "This pilot only offers the Athlete stack." };
   }
 
   const collagen = parseYesNo(collagenRaw);
@@ -86,7 +86,7 @@ export async function submitOrder(
   if (!quote) {
     return {
       success: false,
-      error: "Invalid order. Please choose a stack and at least one pack of 5.",
+      error: "Invalid order. Please refresh and try again.",
     };
   }
 

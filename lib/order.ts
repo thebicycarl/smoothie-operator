@@ -12,20 +12,15 @@ export const COLLAGEN_GRAMS = 10;
 export const COLLAGEN_CENTS_PER_SERVE = 100;
 export const CREATINE_GRAMS = 3;
 
-export const STACKS = [
-  {
-    id: "everyday",
-    name: "Everyday",
-    priceCents: 790,
-    wpiGrams: 15,
-  },
-  {
-    id: "athlete",
-    name: "Athlete",
-    priceCents: 890,
-    wpiGrams: 25,
-  },
-] as const;
+/** The only stack on sale for this pilot. */
+export const ATHLETE_STACK = {
+  id: "athlete",
+  name: "Athlete",
+  priceCents: 890,
+  wpiGrams: 25,
+} as const;
+
+export const STACKS = [ATHLETE_STACK] as const;
 
 export type Stack = (typeof STACKS)[number];
 export type StackId = Stack["id"];

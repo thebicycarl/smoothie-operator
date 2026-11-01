@@ -1,16 +1,13 @@
 import { Leaf, Package, Timer, type LucideIcon } from "lucide-react";
 import {
+  ATHLETE_STACK,
   COLLAGEN_CENTS_PER_SERVE,
   COLLAGEN_GRAMS,
   CREATINE_GRAMS,
   formatAud,
   SERVES_PER_PACK,
-  STACKS,
 } from "@/lib/order";
 import { MILK_ML } from "@/lib/nutrition";
-
-const everyday = STACKS[0];
-const athlete = STACKS[1];
 
 type Step = {
   number: string;
@@ -23,8 +20,8 @@ const steps: Step[] = [
   {
     number: "1",
     icon: Leaf,
-    title: "Choose your stack",
-    body: `Black Forest Powerhouse only. Everyday is ${everyday.wpiGrams}g of chocolate whey protein isolate. Athlete is ${athlete.wpiGrams}g. Both include ${CREATINE_GRAMS}g of creatine monohydrate.`,
+    title: "The Athlete stack",
+    body: `Black Forest Powerhouse with ${ATHLETE_STACK.wpiGrams}g of chocolate whey protein isolate and ${CREATINE_GRAMS}g of creatine monohydrate.`,
   },
   {
     number: "2",
@@ -48,7 +45,7 @@ export default function Blueprint() {
           How to order
         </h2>
         <p className="mx-auto mt-4 max-w-md text-center text-base text-ink/70">
-          One flavour, two stacks, packs of five.
+          One flavour, the Athlete stack, packs of five.
         </p>
 
         <div className="mt-14 flex flex-col gap-6 md:grid md:grid-cols-3 md:gap-6">

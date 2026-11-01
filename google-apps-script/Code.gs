@@ -20,7 +20,6 @@
 var SECRET = ""; // optional — must match GOOGLE_SHEETS_WEBHOOK_SECRET
 
 var STACKS = {
-  Everyday: { priceCents: 790, wpi: 15 },
   Athlete: { priceCents: 890, wpi: 25 },
 };
 var CREATINE_GRAMS = 3;

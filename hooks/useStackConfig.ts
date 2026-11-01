@@ -2,16 +2,16 @@
 
 import { useMemo, useState } from "react";
 import {
+  ATHLETE_STACK,
   PACK_MAX,
   PACK_MIN,
   REPEAT_ORDER_DEFAULT,
   quoteOrder,
   type RepeatOrderId,
-  type StackId,
 } from "@/lib/order";
 
 export function useStackConfig() {
-  const [stackId, setStackId] = useState<StackId>("everyday");
+  const stackId = ATHLETE_STACK.id;
   const [collagen, setCollagen] = useState(false);
   const [packs, setPacks] = useState(PACK_MIN);
   const [repeatOrder, setRepeatOrder] =
@@ -33,7 +33,6 @@ export function useStackConfig() {
 
   return {
     stackId,
-    setStackId,
     collagen,
     setCollagen,
     packs,

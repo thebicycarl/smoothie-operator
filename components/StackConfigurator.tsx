@@ -4,101 +4,60 @@ import { Minus, Plus } from "lucide-react";
 import { useStackConfigContext } from "@/components/StackConfigProvider";
 import SportsFoodNotice from "@/components/SportsFoodNotice";
 import {
+  ATHLETE_STACK,
   CREATINE_GRAMS,
   COLLAGEN_CENTS_PER_SERVE,
   COLLAGEN_GRAMS,
   formatAud,
   freeShippingNudge,
-  getStack,
   PACK_MAX,
   SERVES_PER_PACK,
   shippingOfferCopy,
   SHIPPING_RULE_LABEL,
-  STACKS,
-  type Stack,
 } from "@/lib/order";
 import {
   ATHLETE_CREATINE_NOTE,
+  ATHLETE_NUTRITION,
   CREATINE_LABEL,
-  EVERYDAY_CREATINE_LINE,
   NUTRITION,
-  nutritionForStack,
   WPI_LABEL,
 } from "@/lib/nutrition";
 
-function StackCard({ stack }: { stack: Stack }) {
-  const config = useStackConfigContext();
-  const selected = config.stackId === stack.id;
-  const nutrition = nutritionForStack(stack.id);
-  const athlete = stack.id === "athlete";
-
+function AthletePanel() {
   return (
-    <label
-      className={`flex h-full cursor-pointer flex-col rounded-3xl border bg-cream-card p-5 transition duration-300 ease-in-out ${
-        selected
-          ? "border-terracotta ring-2 ring-terracotta/30"
-          : "border-brown/15 hover:border-terracotta/40"
-      }`}
-    >
-      <span className="flex items-start justify-between gap-3">
-        <span>
-          <span className="flex items-center gap-2">
-            <input
-              type="radio"
-              name="stack-choice"
-              value={stack.id}
-              checked={selected}
-              onChange={() => config.setStackId(stack.id)}
-              className="h-4 w-4 accent-terracotta"
-            />
-            <span className="font-display text-2xl font-semibold text-terracotta-dark">
-              {stack.name}
-            </span>
-          </span>
-          <span className="mt-2 block font-display text-3xl font-semibold tabular-nums text-terracotta">
-            {formatAud(stack.priceCents)}
-            <span className="text-base font-semibold text-ink/60"> / serve</span>
-          </span>
-          <span className="mt-1 block text-sm text-ink/60">
-            {formatAud(stack.priceCents * SERVES_PER_PACK)} per pack of{" "}
-            {SERVES_PER_PACK}
-          </span>
-        </span>
-        {selected && (
-          <span className="rounded-full bg-terracotta/15 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-terracotta-dark">
-            Selected
-          </span>
-        )}
-      </span>
-
+    <article className="rounded-3xl border border-brown/15 bg-cream-card p-5 sm:p-6">
+      <h3 className="font-display text-2xl font-semibold text-terracotta-dark">
+        {ATHLETE_STACK.name}
+      </h3>
+      <p className="mt-2 font-display text-3xl font-semibold tabular-nums text-terracotta">
+        {formatAud(ATHLETE_STACK.priceCents)}
+        <span className="text-base font-semibold text-ink/60"> / serve</span>
+      </p>
+      <p className="mt-1 text-sm text-ink/60">
+        {formatAud(ATHLETE_STACK.priceCents * SERVES_PER_PACK)} per pack of{" "}
+        {SERVES_PER_PACK}
+      </p>
       <ul className="mt-4 space-y-1.5 text-sm leading-relaxed text-ink/80">
         <li>
-          {stack.wpiGrams}g {WPI_LABEL}
+          {ATHLETE_STACK.wpiGrams}g {WPI_LABEL}
         </li>
         <li>
           {CREATINE_GRAMS}g {CREATINE_LABEL}
         </li>
-        <li>Same Black Forest base in every pouch</li>
+        <li>Black Forest Powerhouse base in every pouch</li>
       </ul>
-
       <p className="mt-4 text-sm font-semibold leading-relaxed text-terracotta-dark">
-        {nutrition.pouchLabel} protein in the pouch, and {nutrition.withMilkLabel}{" "}
-        with {NUTRITION.milkMl} ml full cream milk.
+        {ATHLETE_NUTRITION.pouchLabel} protein in the pouch, and{" "}
+        {ATHLETE_NUTRITION.withMilkLabel} with {NUTRITION.milkMl} ml full cream
+        milk.
       </p>
-
-      {athlete ? (
-        <p
-          role="note"
-          className="mt-4 rounded-xl bg-amber/25 px-3 py-3 text-sm leading-relaxed text-terracotta-dark"
-        >
-          {ATHLETE_CREATINE_NOTE}
-        </p>
-      ) : (
-        <p className="mt-4 text-sm leading-relaxed text-ink/70">
-          {EVERYDAY_CREATINE_LINE}
-        </p>
-      )}
-    </label>
+      <p
+        role="note"
+        className="mt-4 rounded-xl bg-amber/25 px-3 py-3 text-sm leading-relaxed text-terracotta-dark"
+      >
+        {ATHLETE_CREATINE_NOTE}
+      </p>
+    </article>
   );
 }
 
@@ -113,25 +72,21 @@ export default function StackConfigurator() {
       id="configurator"
       className="section-anchor bg-cream-deep px-5 py-20 sm:px-8"
     >
-      <div className="mx-auto max-w-5xl">
+      <div className="mx-auto max-w-3xl">
         <h2 className="text-center font-display text-4xl font-semibold tracking-tight text-terracotta-dark sm:text-5xl">
-          Choose your stack
+          The Athlete stack
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-center text-base leading-relaxed text-ink/70">
-          Two fixed stacks. Same Black Forest base, same {CREATINE_GRAMS}g
-          creatine monohydrate. Athlete uses {getStack("athlete").wpiGrams}g of
-          chocolate whey protein isolate and Everyday uses{" "}
-          {getStack("everyday").wpiGrams}g. Sold in packs of {SERVES_PER_PACK}{" "}
-          only.
+          The only stack in this pilot. {ATHLETE_STACK.wpiGrams}g chocolate whey
+          protein isolate and {CREATINE_GRAMS}g creatine monohydrate on the
+          Black Forest base. Sold in packs of {SERVES_PER_PACK} only.
         </p>
         <p className="mx-auto mt-3 max-w-2xl text-center text-sm leading-relaxed text-ink/60">
           {NUTRITION.milkAssumption}
         </p>
 
-        <div className="mt-10 grid gap-4 md:grid-cols-2">
-          {STACKS.map((stack) => (
-            <StackCard key={stack.id} stack={stack} />
-          ))}
+        <div className="mt-10">
+          <AthletePanel />
         </div>
 
         <label
@@ -158,9 +113,9 @@ export default function StackConfigurator() {
             </span>
             <span className="mt-1 block text-sm leading-relaxed text-ink/70">
               Optional. +{COLLAGEN_GRAMS}g collagen peptides in the dry chamber
-              on either stack. That is {NUTRITION.collagenProteinLabel} of extra
+              of each serve. That is {NUTRITION.collagenProteinLabel} of extra
               protein. Collagen is not a complete protein, so it sits on top of
-              the stack figure.
+              the Athlete figure.
             </span>
           </span>
         </label>

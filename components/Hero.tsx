@@ -1,8 +1,10 @@
 import Image from "next/image";
-import { CREATINE_GRAMS, formatAud, SERVES_PER_PACK, STACKS } from "@/lib/order";
-
-const everyday = STACKS[0];
-const athlete = STACKS[1];
+import {
+  ATHLETE_STACK,
+  CREATINE_GRAMS,
+  formatAud,
+  SERVES_PER_PACK,
+} from "@/lib/order";
 
 export default function Hero() {
   return (
@@ -19,7 +21,7 @@ export default function Hero() {
             href="#configurator"
             className="hidden min-h-[44px] items-center rounded-lg bg-terracotta px-5 font-bold text-cream transition duration-300 ease-in-out hover:bg-terracotta-dark sm:inline-flex"
           >
-            Choose your stack
+            Order Athlete
           </a>
         </div>
       </header>
@@ -38,9 +40,9 @@ export default function Hero() {
             </h1>
 
             <p className="mt-5 max-w-md text-base leading-relaxed text-ink/70 sm:text-lg">
-              Black Forest Powerhouse is the only flavour for now. Choose
-              Everyday ({formatAud(everyday.priceCents)}) or Athlete (
-              {formatAud(athlete.priceCents)}) per serve, both with{" "}
+              Black Forest Powerhouse is the only flavour for now, made as the
+              Athlete stack: {formatAud(ATHLETE_STACK.priceCents)} per serve,{" "}
+              {ATHLETE_STACK.wpiGrams}g chocolate whey protein isolate, and{" "}
               {CREATINE_GRAMS}g creatine monohydrate. Packs of {SERVES_PER_PACK}.
               Rip, pour, blend.
             </p>
@@ -56,7 +58,7 @@ export default function Hero() {
                 href="#configurator"
                 className="flex min-h-[44px] w-full items-center justify-center rounded-lg border-2 border-terracotta-dark px-7 text-base font-bold text-terracotta-dark transition duration-300 ease-in-out hover:bg-terracotta-dark hover:text-cream sm:w-auto"
               >
-                Choose your stack
+                Order Athlete
               </a>
             </div>
           </div>

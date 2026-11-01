@@ -1,16 +1,13 @@
 import {
+  ATHLETE_STACK,
   COLLAGEN_CENTS_PER_SERVE,
   formatAud,
   FREE_SHIPPING_THRESHOLD_CENTS,
-  STACKS,
 } from "@/lib/order";
-
-const everyday = STACKS[0];
-const athlete = STACKS[1];
 
 const messages = [
   "Pilot flavour: Black Forest Powerhouse",
-  `Everyday ${formatAud(everyday.priceCents)} · Athlete ${formatAud(athlete.priceCents)} per serve`,
+  `Athlete ${formatAud(ATHLETE_STACK.priceCents)} per serve`,
   `Packs of 5 · collagen +${formatAud(COLLAGEN_CENTS_PER_SERVE)}`,
   `Free shipping over ${formatAud(FREE_SHIPPING_THRESHOLD_CENTS)}`,
   "Toowoomba earlybird: free shipping",

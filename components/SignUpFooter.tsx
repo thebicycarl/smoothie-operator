@@ -33,7 +33,7 @@ function OrderSummary() {
           href="#configurator"
           className="text-xs font-semibold text-cream/70 underline underline-offset-2 transition duration-300 ease-in-out hover:text-cream"
         >
-          Edit stack
+          Edit order
         </a>
       </div>
 

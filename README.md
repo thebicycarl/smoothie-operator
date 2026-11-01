@@ -1,6 +1,6 @@
 # Smoothie Operator
 
-A mobile-first storefront for the Smoothie Operator pilot. One flavour is on sale — Black Forest Powerhouse — in two fixed stacks (Everyday and Athlete), with an optional collagen add-on, sold in packs of 5. Built with Next.js (App Router), TypeScript and Tailwind CSS.
+A mobile-first storefront for the Smoothie Operator pilot. One flavour is on sale — Black Forest Powerhouse — on the Athlete stack, with an optional collagen add-on, sold in packs of 5. Built with Next.js (App Router), TypeScript and Tailwind CSS.
 
 Live at [smoothieoperator.com.au](https://smoothieoperator.com.au).
 

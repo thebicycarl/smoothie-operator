@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://smoothieoperator.com.au"),
   title: "SMOOTHIE OPERATOR | Black Forest Powerhouse",
   description:
-    "Black Forest Powerhouse smoothie packs in Everyday or Athlete stacks, with optional collagen. Packs of 5, cold-chain delivery. Formulated supplementary sports food.",
+    "Black Forest Powerhouse smoothie packs on the Athlete stack, with optional collagen. Packs of 5, cold-chain delivery. Formulated supplementary sports food.",
 };
 
 export default function RootLayout({

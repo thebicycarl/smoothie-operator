@@ -1,5 +1,5 @@
 import { COMING_SOON_FLAVORS, AVAILABLE_FLAVOR } from "@/lib/flavors";
-import { formatAud, STACKS } from "@/lib/order";
+import { ATHLETE_STACK, CREATINE_GRAMS, formatAud } from "@/lib/order";
 import {
   ALLERGEN_NOTE,
   METHODOLOGY_PARAGRAPHS,
@@ -7,8 +7,6 @@ import {
   SHARED_RECIPE,
   WHEY_COMPOSITION_NOTE,
 } from "@/lib/nutrition";
-
-const fromPriceCents = Math.min(...STACKS.map((stack) => stack.priceCents));
 
 function RecipeColumn({
   title,
@@ -42,14 +40,14 @@ export default function FlavorMenu() {
         </h2>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink/70">
           The only flavour on sale for the pilot. Cherries, blueberries, cacao,
-          baby spinach, hemp seed protein and brown flaxseed meal, then a fixed
-          Everyday or Athlete stack. More flavours are on the way, and they are
-          not for sale yet.
+          baby spinach, hemp seed protein and brown flaxseed meal, finished as
+          the Athlete stack. More flavours are on the way, and they are not for
+          sale yet.
         </p>
 
         <article className="mt-10 rounded-3xl border border-brown/15 bg-cream-card p-6 sm:p-8">
           <span className="inline-block rounded-full bg-amber/25 px-2.5 py-1 text-xs font-bold text-terracotta-dark">
-            On sale · from {formatAud(fromPriceCents)}/serve · packs of 5
+            On sale · {formatAud(ATHLETE_STACK.priceCents)}/serve · packs of 5
           </span>
           <h3 className="mt-4 font-display text-3xl font-semibold text-terracotta-dark">
             {AVAILABLE_FLAVOR.name}
@@ -65,8 +63,8 @@ export default function FlavorMenu() {
             <RecipeColumn title="Dry chamber" chamber="dry" />
           </div>
           <p className="mt-4 text-sm leading-relaxed text-ink/70">
-            {WHEY_COMPOSITION_NOTE} The whey amount and the creatine sit with
-            the stack you choose.
+            {WHEY_COMPOSITION_NOTE} Each serve adds {ATHLETE_STACK.wpiGrams}g of
+            that whey and {CREATINE_GRAMS}g creatine monohydrate.
           </p>
 
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
@@ -111,7 +109,7 @@ export default function FlavorMenu() {
             href="#configurator"
             className="mt-6 inline-flex min-h-[44px] items-center justify-center rounded-lg bg-terracotta px-6 text-sm font-bold text-cream transition duration-300 ease-in-out hover:bg-terracotta-dark"
           >
-            Choose your stack
+            Order Athlete
           </a>
         </article>
 
