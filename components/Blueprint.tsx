@@ -1,4 +1,16 @@
-import { SlidersHorizontal, Truck, Timer, LucideIcon } from "lucide-react";
+import { Leaf, Package, Timer, type LucideIcon } from "lucide-react";
+import {
+  COLLAGEN_CENTS_PER_SERVE,
+  COLLAGEN_GRAMS,
+  CREATINE_GRAMS,
+  formatAud,
+  SERVES_PER_PACK,
+  STACKS,
+} from "@/lib/order";
+import { MILK_ML } from "@/lib/nutrition";
+
+const everyday = STACKS[0];
+const athlete = STACKS[1];
 
 type Step = {
   number: string;
@@ -10,21 +22,21 @@ type Step = {
 const steps: Step[] = [
   {
     number: "1",
-    icon: SlidersHorizontal,
-    title: "Pick Your Flavours",
-    body: "Browse our five whole-food formulations and choose how many of each you want. Mix and match to build your perfect box.",
+    icon: Leaf,
+    title: "Choose your stack",
+    body: `Black Forest Powerhouse only. Everyday is ${everyday.wpiGrams}g of chocolate whey protein isolate. Athlete is ${athlete.wpiGrams}g. Both include ${CREATINE_GRAMS}g of creatine monohydrate.`,
   },
   {
     number: "2",
-    icon: Truck,
-    title: "Configure Your Stack",
-    body: "Dial in your Protein, Creatine, Collagen, and more — the same nutrient stack applies to every smoothie in your order.",
+    icon: Package,
+    title: "Add packs of five",
+    body: `Each pack is ${SERVES_PER_PACK} serves. Order one pack or more. Collagen peptides are optional: +${COLLAGEN_GRAMS}g and +${formatAud(COLLAGEN_CENTS_PER_SERVE)} per serve.`,
   },
   {
     number: "3",
     icon: Timer,
-    title: "30-Second Execution",
-    body: "Tear the twin-compartment pouch (keeping frozen ingredients and dry powders separated). Dump into your blender, add your fluid, and blend. Zero waste, zero prep.",
+    title: "Blend in 30 seconds",
+    body: `Tear the twin-compartment pouch, tip the frozen chamber and the dry powders into a blender, add about ${MILK_ML} ml of milk or the fluid you like, and blend.`,
   },
 ];
 
@@ -33,10 +45,10 @@ export default function Blueprint() {
     <section className="bg-cream-deep px-5 py-20 sm:px-8">
       <div className="mx-auto max-w-5xl">
         <h2 className="text-center font-display text-4xl font-semibold tracking-tight text-terracotta-dark sm:text-5xl">
-          How to order:
+          How to order
         </h2>
         <p className="mx-auto mt-4 max-w-md text-center text-base text-ink/70">
-          Three steps between you and the easiest nutrition of your life.
+          One flavour, two stacks, packs of five.
         </p>
 
         <div className="mt-14 flex flex-col gap-6 md:grid md:grid-cols-3 md:gap-6">

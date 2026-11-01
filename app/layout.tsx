@@ -17,9 +17,9 @@ const barlow = Barlow({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://smoothieoperator.com.au"),
-  title: "SMOOTHIE OPERATOR | Performance Smoothies",
+  title: "SMOOTHIE OPERATOR | Black Forest Powerhouse",
   description:
-    "Ready-to-blend, café-quality smoothie packs. Customise your protein, creatine, collagen and more — delivered cold-chain to your door.",
+    "Black Forest Powerhouse smoothie packs in Everyday or Athlete stacks, with optional collagen. Packs of 5, cold-chain delivery. Formulated supplementary sports food.",
 };
 
 export default function RootLayout({

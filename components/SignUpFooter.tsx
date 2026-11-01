@@ -3,142 +3,115 @@
 import { useFormState, useFormStatus } from "react-dom";
 import { submitOrder, type OrderState } from "@/app/actions";
 import { useStackConfigContext } from "@/components/StackConfigProvider";
-import { BASE_PROTEIN_GRAMS, REPEAT_ORDER_OPTIONS } from "@/hooks/useStackConfig";
-import { FLAVORS } from "@/lib/flavors";
-import { scrollToSection } from "@/lib/scroll";
+import SportsFoodNotice from "@/components/SportsFoodNotice";
+import {
+  COLLAGEN_GRAMS,
+  formatAud,
+  freeShippingNudge,
+  REPEAT_ORDER_OPTIONS,
+  SERVES_PER_PACK,
+  SHIPPING_RULE_LABEL,
+} from "@/lib/order";
+import { MILK_ML, nutritionForStack } from "@/lib/nutrition";
 
 const initialState: OrderState = { success: false };
 
 function OrderSummary() {
   const config = useStackConfigContext();
-
-  const selectedFlavors = FLAVORS.filter(
-    (f) => (config.flavorQuantities[f.id] ?? 0) > 0
-  );
-
-  const totalProtein = BASE_PROTEIN_GRAMS + config.proteinGrams;
-
-  const nutrients = [
-    {
-      label: "Protein",
-      detail: `${BASE_PROTEIN_GRAMS}g base + ${config.proteinGrams}g added per serve`,
-      display: `${totalProtein}g total per serve`,
-    },
-    {
-      label: "Creatine",
-      detail: null,
-      display: `${config.creatineGrams}g per serve`,
-    },
-    {
-      label: "Collagen",
-      detail: null,
-      display: `${config.collagenGrams}g per serve`,
-    },
-  ];
+  const { quote } = config;
+  const nutrition = nutritionForStack(quote.stack.id);
+  const nudge = freeShippingNudge(quote.extraPacksForFreeShipping);
+  const repeatLabel = REPEAT_ORDER_OPTIONS.find(
+    (option) => option.id === config.repeatOrder
+  )?.label;
 
   return (
     <div className="mx-auto mb-10 max-w-md rounded-2xl border border-cream/25 bg-cream/10 p-5 text-left">
       <div className="flex items-center justify-between">
         <h3 className="font-display text-lg font-semibold">Your order</h3>
-        <button
-          type="button"
-          onClick={() => scrollToSection("menu")}
+        <a
+          href="#configurator"
           className="text-xs font-semibold text-cream/70 underline underline-offset-2 transition duration-300 ease-in-out hover:text-cream"
         >
-          Edit
-        </button>
+          Edit stack
+        </a>
       </div>
 
-      <dl className="mt-4 text-sm">
+      <dl className="mt-4 space-y-4 text-sm">
         <div className="rounded-xl border border-cream/20 bg-cream/5 p-3">
-          <p className="text-[11px] font-bold uppercase tracking-widest text-cream/70">
-            Flavours:
-          </p>
-          <div className="mt-2 space-y-2">
-            {selectedFlavors.length > 0 ? (
-              selectedFlavors.map((flavor) => (
-                <div
-                  key={flavor.id}
-                  className="flex items-center justify-between"
-                >
-                  <dt className="text-cream/80">{flavor.name}</dt>
-                  <dd className="font-semibold tabular-nums">
-                    ×{config.flavorQuantities[flavor.id]}
-                  </dd>
-                </div>
-              ))
-            ) : (
-              <p className="text-cream/80">No flavours selected yet</p>
-            )}
+          <div className="flex items-center justify-between gap-4">
+            <dt className="text-cream/80">{quote.flavourName}</dt>
+            <dd className="font-semibold">{quote.stack.name}</dd>
           </div>
-        </div>
-
-        <div className="mt-4 rounded-xl border border-cream/20 bg-cream/5 p-3">
-          <div className="flex items-center justify-between">
-            <dt className="text-cream/80">Repeat order</dt>
-            <dd className="font-semibold">
-              {
-                REPEAT_ORDER_OPTIONS.find(
-                  (option) => option.id === config.repeatOrder
-                )?.label
-              }
+          <div className="mt-2 flex items-start justify-between gap-4">
+            <dt className="text-cream/80">Chocolate whey protein isolate</dt>
+            <dd className="font-semibold tabular-nums">{quote.wpiGrams}g</dd>
+          </div>
+          <div className="mt-2 flex items-start justify-between gap-4">
+            <dt className="text-cream/80">Creatine monohydrate</dt>
+            <dd className="text-right font-semibold tabular-nums">
+              {quote.creatineGrams}g / serve
             </dd>
           </div>
+          <div className="mt-2 flex items-start justify-between gap-4">
+            <dt className="text-cream/80">Collagen peptides</dt>
+            <dd className="text-right font-semibold">
+              {quote.collagen ? `+${COLLAGEN_GRAMS}g / serve` : "None"}
+            </dd>
+          </div>
+          <div className="mt-2 flex items-center justify-between gap-4">
+            <dt className="text-cream/80">
+              Packs
+            </dt>
+            <dd className="font-semibold tabular-nums">
+              {quote.packs} × {SERVES_PER_PACK} ({quote.serves} serves)
+            </dd>
+          </div>
+          <p className="mt-3 text-[11px] leading-relaxed text-cream/65">
+            {nutrition.pouchLabel} protein in the pouch, {nutrition.withMilkLabel}{" "}
+            with {MILK_ML} ml full cream milk.
+          </p>
         </div>
 
-        <div className="mt-4 rounded-xl border border-cream/20 bg-cream/5 p-3">
-          <p className="text-[11px] font-bold uppercase tracking-widest text-cream/70">
-            Per serve:
-          </p>
-          <div className="mt-2 space-y-2">
-            {nutrients.map((n) => (
-              <div
-                key={n.label}
-                className="flex items-start justify-between gap-4"
-              >
-                <dt className="text-cream/80">
-                  {n.label}
-                  {n.detail && (
-                    <span className="mt-0.5 block text-[11px] text-cream/60">
-                      {n.detail}
-                    </span>
-                  )}
-                </dt>
-                <dd className="font-semibold tabular-nums">{n.display}</dd>
-              </div>
-            ))}
-
-            {config.customRequest.trim() && (
-              <div className="flex items-start justify-between gap-4 border-t border-cream/15 pt-2">
-                <dt className="text-cream/80">Special request</dt>
-                <dd className="text-right font-semibold">
-                  {config.customRequest}
-                </dd>
-              </div>
-            )}
+        <div className="rounded-xl border border-cream/20 bg-cream/5 p-3">
+          <div className="flex items-center justify-between">
+            <dt className="text-cream/80">Repeat order</dt>
+            <dd className="font-semibold">{repeatLabel}</dd>
           </div>
         </div>
       </dl>
 
       <dl className="mt-4 space-y-1.5 border-t border-cream/20 pt-4 text-sm">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-4">
           <dt className="text-cream/80">
-            Smoothies (${config.pricePerServe.toFixed(2)}/serve ×{" "}
-            {config.totalServes})
+            Packs ({formatAud(quote.pricePerServeCents)}/serve × {quote.serves})
           </dt>
           <dd className="font-semibold tabular-nums">
-            ${config.subtotal.toFixed(2)}
+            {formatAud(quote.subtotalCents)}
           </dd>
         </div>
-        <div className="flex items-center justify-between">
-          <dt className="text-cream/80">Shipping</dt>
+        <div className="flex items-center justify-between gap-4">
+          <dt className="text-cream/80">
+            Shipping
+            <span className="mt-0.5 block text-[11px] text-cream/60">
+              {SHIPPING_RULE_LABEL[quote.shippingRule]}
+            </span>
+          </dt>
           <dd className="font-semibold tabular-nums">
-            {config.qualifiesForFreeShipping
+            {quote.shippingCents === 0
               ? "Free"
-              : `$${config.shippingCost.toFixed(2)}`}
+              : formatAud(quote.shippingCents)}
           </dd>
         </div>
       </dl>
+      {nudge && (
+        <p className="mt-2 text-xs text-cream/75">{nudge}</p>
+      )}
+      {quote.shippingRule === "toowoomba-earlybird" && (
+        <p className="mt-2 text-xs text-cream/80">
+          Toowoomba earlybird applied. Shipping is free.
+        </p>
+      )}
 
       <div className="mt-3 flex items-end justify-between border-t border-cream/20 pt-3">
         <div>
@@ -148,26 +121,26 @@ function OrderSummary() {
           <p className="text-[11px] leading-tight text-cream/70">
             {config.repeatOrder === "none"
               ? "One-time purchase · cold-chain delivery"
-              : `${REPEAT_ORDER_OPTIONS.find((option) => option.id === config.repeatOrder)?.label ?? "Repeat order"} · cold-chain delivery`}
+              : `${repeatLabel} · cold-chain delivery`}
           </p>
         </div>
         <span className="font-display text-3xl font-semibold leading-none tabular-nums">
-          ${config.orderTotal.toFixed(2)}
+          {formatAud(quote.totalCents)}
         </span>
       </div>
     </div>
   );
 }
 
-function SubmitButton({ disabled }: { disabled: boolean }) {
+function SubmitButton() {
   const { pending } = useFormStatus();
   return (
     <button
       type="submit"
-      disabled={pending || disabled}
+      disabled={pending}
       className="flex min-h-[44px] w-full items-center justify-center rounded-lg bg-terracotta-dark px-6 text-base font-bold text-cream transition duration-300 ease-in-out hover:brightness-110 disabled:opacity-60"
     >
-      {pending ? "Placing order..." : "Place Order"}
+      {pending ? "Placing order..." : "Place order"}
     </button>
   );
 }
@@ -225,19 +198,17 @@ function CheckoutForm({
   error?: string;
 }) {
   const config = useStackConfigContext();
-
-  const flavorPayload = FLAVORS.map((f) => ({
-    id: f.id,
-    qty: config.flavorQuantities[f.id] ?? 0,
-  }));
+  const toowoomba = config.quote.shippingRule === "toowoomba-earlybird";
 
   return (
     <form action={formAction} className="space-y-3">
-      <input type="hidden" name="flavors" value={JSON.stringify(flavorPayload)} />
-      <input type="hidden" name="protein" value={config.proteinGrams} />
-      <input type="hidden" name="creatine" value={config.creatineGrams} />
-      <input type="hidden" name="collagen" value={config.collagenGrams} />
-      <input type="hidden" name="suggestions" value={config.customRequest} />
+      <input type="hidden" name="stack" value={config.stackId} />
+      <input
+        type="hidden"
+        name="collagen"
+        value={config.collagen ? "yes" : "no"}
+      />
+      <input type="hidden" name="packs" value={config.packs} />
       <input
         type="text"
         name="name"
@@ -263,19 +234,41 @@ function CheckoutForm({
         placeholder="Delivery address"
         aria-label="Delivery address"
         autoComplete="street-address"
+        value={config.address}
+        onChange={(event) => config.setAddress(event.target.value)}
         className="min-h-[44px] w-full rounded-lg border border-cream/30 bg-cream/10 px-4 text-cream placeholder:text-cream/50 focus:border-cream focus:outline-none"
       />
-      <input
-        type="text"
-        name="suburb"
-        required
-        placeholder="Suburb"
-        aria-label="Suburb"
-        autoComplete="address-level2"
-        className="min-h-[44px] w-full rounded-lg border border-cream/30 bg-cream/10 px-4 text-cream placeholder:text-cream/50 focus:border-cream focus:outline-none"
-      />
+      <div className="text-left">
+        <input
+          type="text"
+          name="suburb"
+          required
+          placeholder="Suburb or city"
+          aria-label="Suburb or city"
+          aria-describedby="suburb-hint"
+          autoComplete="address-level2"
+          value={config.suburb}
+          onChange={(event) => config.setSuburb(event.target.value)}
+          className="min-h-[44px] w-full rounded-lg border border-cream/30 bg-cream/10 px-4 text-cream placeholder:text-cream/50 focus:border-cream focus:outline-none"
+        />
+        <p
+          id="suburb-hint"
+          aria-live="polite"
+          className="mt-1.5 text-xs leading-relaxed text-cream/75"
+        >
+          Toowoomba earlybird: free shipping when the suburb or address includes
+          Toowoomba, including North, East, South or West Toowoomba.
+          {toowoomba
+            ? ` Earlybird rate applied. Shipping is free, and the order total is ${formatAud(config.quote.totalCents)}.`
+            : ` Shipping on this order is ${
+                config.quote.shippingCents === 0
+                  ? "free"
+                  : formatAud(config.quote.shippingCents)
+              }.`}
+        </p>
+      </div>
       <RepeatOrderSelector />
-      <SubmitButton disabled={!config.meetsMinimumOrder} />
+      <SubmitButton />
       {error && <p className="text-sm text-cream/85">{error}</p>}
     </form>
   );
@@ -295,19 +288,23 @@ export default function SignUpFooter() {
             Ready to order?
           </h2>
           <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-cream/85">
-            Review your custom smoothie order below, enter your delivery
-            details, and we&apos;ll get your cold-chain box on its way.
+            Check the stack, the packs of five, and where it is going. This
+            pilot order does not take payment. We will confirm delivery with
+            you.
           </p>
 
           <div className="mt-10">
             <OrderSummary />
           </div>
 
+          <div className="mb-6 text-left">
+            <SportsFoodNotice tone="cream" />
+          </div>
+
           <div>
             {state.success ? (
               <p className="rounded-2xl border-2 border-cream/40 bg-cream/10 px-6 py-5 font-display text-xl font-semibold">
-                Order received! We&apos;ll be in touch shortly to confirm
-                delivery.
+                Order received. We will be in touch shortly to confirm delivery.
               </p>
             ) : (
               <CheckoutForm formAction={formAction} error={state.error} />
@@ -315,7 +312,7 @@ export default function SignUpFooter() {
           </div>
 
           <p className="mt-4 text-xs text-cream/70">
-            Secure checkout coming soon. No payment required for pilot orders.
+            Secure checkout coming soon. No payment is taken for pilot orders.
           </p>
         </div>
       </section>

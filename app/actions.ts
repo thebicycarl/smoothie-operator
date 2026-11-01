@@ -1,18 +1,14 @@
 "use server";
 
 import {
-  COLLAGEN_STOPS,
-  CREATINE_STOPS,
-  FLAVOR_IDS,
-  FLAVOR_QTY_MAX,
-  ORDER_MAX,
-  ORDER_MIN,
-  PROTEIN_STOPS,
-  getRepeatOrderLabel,
+  PACK_MAX,
+  PACK_MIN,
+  buildOrderRecord,
+  isStackId,
+  isValidPackCount,
   isValidRepeatOrder,
-  isValidStop,
-} from "@/lib/stackConfig";
-import { FLAVORS } from "@/lib/flavors";
+  quoteOrder,
+} from "@/lib/order";
 
 export type OrderState = {
   success: boolean;
@@ -21,35 +17,10 @@ export type OrderState = {
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function parseStop(
-  value: FormDataEntryValue | null,
-  stops: readonly number[]
-): number {
-  const grams = Number(String(value ?? "").trim());
-  return isValidStop(grams, stops) ? grams : -1;
-}
-
-type FlavorLine = { id: string; qty: number };
-
-function parseFlavors(raw: string): FlavorLine[] | null {
-  try {
-    const parsed = JSON.parse(raw) as FlavorLine[];
-    if (!Array.isArray(parsed)) return null;
-
-    const validIds = new Set(FLAVOR_IDS);
-    const lines: FlavorLine[] = [];
-
-    for (const item of parsed) {
-      if (typeof item.id !== "string" || !validIds.has(item.id)) return null;
-      const qty = Number(item.qty);
-      if (!Number.isInteger(qty) || qty < 0 || qty > FLAVOR_QTY_MAX) return null;
-      if (qty > 0) lines.push({ id: item.id, qty });
-    }
-
-    return lines;
-  } catch {
-    return null;
-  }
+function parseYesNo(value: string): boolean | null {
+  if (value === "yes") return true;
+  if (value === "no") return false;
+  return null;
 }
 
 export async function submitOrder(
@@ -60,13 +31,10 @@ export async function submitOrder(
   const email = String(formData.get("email") ?? "").trim();
   const address = String(formData.get("address") ?? "").trim();
   const suburb = String(formData.get("suburb") ?? "").trim();
-  const suggestions = String(formData.get("suggestions") ?? "").trim();
-  const protein = parseStop(formData.get("protein"), PROTEIN_STOPS);
-  const creatine = parseStop(formData.get("creatine"), CREATINE_STOPS);
-  const collagen = parseStop(formData.get("collagen"), COLLAGEN_STOPS);
+  const stackRaw = String(formData.get("stack") ?? "").trim();
+  const collagenRaw = String(formData.get("collagen") ?? "").trim();
+  const packs = Number(String(formData.get("packs") ?? "").trim());
   const repeatOrderRaw = String(formData.get("repeatOrder") ?? "").trim();
-
-  const flavors = parseFlavors(String(formData.get("flavors") ?? ""));
 
   if (!isValidRepeatOrder(repeatOrderRaw)) {
     return {
@@ -74,8 +42,6 @@ export async function submitOrder(
       error: "Please select a valid repeat order option.",
     };
   }
-
-  const repeatOrder = repeatOrderRaw;
 
   if (!name) {
     return { success: false, error: "Please enter your full name." };
@@ -90,63 +56,62 @@ export async function submitOrder(
   }
 
   if (!suburb) {
-    return { success: false, error: "Please enter your suburb." };
+    return { success: false, error: "Please enter your suburb or city." };
   }
 
-  if (!flavors || flavors.length === 0) {
+  if (!isStackId(stackRaw)) {
+    return { success: false, error: "Please choose Everyday or Athlete." };
+  }
+
+  const collagen = parseYesNo(collagenRaw);
+  if (collagen === null) {
+    return { success: false, error: "Please choose whether to add collagen." };
+  }
+
+  if (!isValidPackCount(packs)) {
     return {
       success: false,
-      error: "Please select at least one flavour.",
+      error: `Orders are packs of 5, from ${PACK_MIN} to ${PACK_MAX} packs.`,
     };
   }
 
-  const totalServes = flavors.reduce((sum, f) => sum + f.qty, 0);
+  const quote = quoteOrder({
+    stackId: stackRaw,
+    collagen,
+    packs,
+    suburb,
+    address,
+  });
 
-  if (totalServes < ORDER_MIN || totalServes > ORDER_MAX) {
+  if (!quote) {
     return {
       success: false,
-      error: `Orders must be between ${ORDER_MIN} and ${ORDER_MAX} serves.`,
+      error: "Invalid order. Please choose a stack and at least one pack of 5.",
     };
   }
 
-  if (protein < 0 || creatine < 0 || collagen < 0) {
-    return {
-      success: false,
-      error: "Invalid smoothie configuration. Please try again.",
-    };
-  }
-
-  const flavorSummary = flavors
-    .map((f) => {
-      const flavor = FLAVORS.find((item) => item.id === f.id);
-      return `${flavor?.name ?? f.id} ×${f.qty}`;
-    })
-    .join(", ");
-
-  const payload = {
+  const record = buildOrderRecord(quote, {
     name,
     email,
     address,
     suburb,
-    totalServes,
-    flavors: flavorSummary,
-    protein,
-    creatine,
-    collagen,
-    suggestions,
-    repeatOrder: getRepeatOrderLabel(repeatOrder),
-    secret: process.env.GOOGLE_SHEETS_WEBHOOK_SECRET ?? "",
-  };
+    repeatOrder: repeatOrderRaw,
+  });
 
   const webhookUrl = process.env.GOOGLE_SHEETS_WEBHOOK_URL;
 
   if (!webhookUrl) {
     console.warn(
       "GOOGLE_SHEETS_WEBHOOK_URL is not set — order accepted but not recorded:",
-      payload
+      record
     );
     return { success: true };
   }
+
+  const payload = {
+    ...record,
+    secret: process.env.GOOGLE_SHEETS_WEBHOOK_SECRET ?? "",
+  };
 
   try {
     const res = await fetch(webhookUrl, {
@@ -165,6 +130,10 @@ export async function submitOrder(
     }
 
     if (!res.ok || !body?.ok) {
+      console.error(
+        "Google Sheets webhook rejected the order:",
+        body?.error ?? raw.slice(0, 500)
+      );
       return {
         success: false,
         error:
