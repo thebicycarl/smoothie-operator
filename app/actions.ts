@@ -3,6 +3,7 @@
 import {
   PACK_MAX,
   PACK_MIN,
+  SERVES_PER_PACK,
   buildOrderRecord,
   isStackId,
   isValidPackCount,
@@ -71,7 +72,7 @@ export async function submitOrder(
   if (!isValidPackCount(packs)) {
     return {
       success: false,
-      error: `Orders are packs of 5, from ${PACK_MIN} to ${PACK_MAX} packs.`,
+      error: `Orders are sold in groups of ${SERVES_PER_PACK} serves, from ${PACK_MIN * SERVES_PER_PACK} to ${PACK_MAX * SERVES_PER_PACK} serves.`,
     };
   }
 

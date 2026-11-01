@@ -1,6 +1,6 @@
 import { AVAILABLE_FLAVOR } from "@/lib/flavors";
 
-export const SERVES_PER_PACK = 5;
+export const SERVES_PER_PACK = 6;
 /** Pilot checkout guard. The product itself is sold as 1 or more packs. */
 export const PACK_MIN = 1;
 export const PACK_MAX = 20;
@@ -143,13 +143,16 @@ export function isValidRepeatOrder(value: string): value is RepeatOrderId {
 }
 
 export function shippingOfferCopy(): string {
-  return `Shipping is ${formatAud(ORDER_SHIPPING_CENTS)} flat. It is free when the pack subtotal reaches ${formatAud(FREE_SHIPPING_THRESHOLD_CENTS)}, before shipping. Toowoomba earlybird: free shipping when your suburb or address includes Toowoomba.`;
+  return `Shipping is ${formatAud(ORDER_SHIPPING_CENTS)} flat. It is free when the serve subtotal reaches ${formatAud(FREE_SHIPPING_THRESHOLD_CENTS)}, before shipping. Toowoomba earlybird: free shipping when your suburb or address includes Toowoomba.`;
 }
 
 export function freeShippingNudge(extraPacks: number | null): string | null {
   if (extraPacks == null) return null;
-  if (extraPacks === 1) return "One more pack and shipping is free.";
-  return `Add ${extraPacks} packs for free shipping.`;
+  const serves = extraPacks * SERVES_PER_PACK;
+  if (serves === SERVES_PER_PACK) {
+    return `Add ${SERVES_PER_PACK} more serves and shipping is free.`;
+  }
+  return `Add ${serves} more serves for free shipping.`;
 }
 
 function extraPacksForFreeShipping(

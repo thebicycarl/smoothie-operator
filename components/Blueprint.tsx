@@ -26,8 +26,8 @@ const steps: Step[] = [
   {
     number: "2",
     icon: Package,
-    title: "Add packs of five",
-    body: `Each pack is ${SERVES_PER_PACK} serves. Order one pack or more. Collagen peptides are optional: +${COLLAGEN_GRAMS}g and +${formatAud(COLLAGEN_CENTS_PER_SERVE)} per serve.`,
+    title: `Packs of ${SERVES_PER_PACK} serves`,
+    body: `Each pack is ${SERVES_PER_PACK} serves (${formatAud(ATHLETE_STACK.priceCents * SERVES_PER_PACK)}). Choose how many serves you want. Collagen peptides are optional: +${COLLAGEN_GRAMS}g and +${formatAud(COLLAGEN_CENTS_PER_SERVE)} per serve.`,
   },
   {
     number: "3",
@@ -45,7 +45,7 @@ export default function Blueprint() {
           How to order
         </h2>
         <p className="mx-auto mt-4 max-w-md text-center text-base text-ink/70">
-          One flavour, the Athlete stack, packs of five.
+          One flavour, the Athlete stack, packs of {SERVES_PER_PACK} serves.
         </p>
 
         <div className="mt-14 flex flex-col gap-6 md:grid md:grid-cols-3 md:gap-6">

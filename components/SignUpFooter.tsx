@@ -9,7 +9,6 @@ import {
   formatAud,
   freeShippingNudge,
   REPEAT_ORDER_OPTIONS,
-  SERVES_PER_PACK,
   SHIPPING_RULE_LABEL,
 } from "@/lib/order";
 import { MILK_ML, nutritionForStack } from "@/lib/nutrition";
@@ -60,15 +59,11 @@ function OrderSummary() {
             </dd>
           </div>
           <div className="mt-2 flex items-center justify-between gap-4">
-            <dt className="text-cream/80">
-              Packs
-            </dt>
-            <dd className="font-semibold tabular-nums">
-              {quote.packs} × {SERVES_PER_PACK} ({quote.serves} serves)
-            </dd>
+            <dt className="text-cream/80">Serves</dt>
+            <dd className="font-semibold tabular-nums">{quote.serves}</dd>
           </div>
           <p className="mt-3 text-[11px] leading-relaxed text-cream/65">
-            {nutrition.pouchLabel} protein in the pouch, {nutrition.withMilkLabel}{" "}
+            {nutrition.pouchLabel} protein per serve, {nutrition.withMilkLabel}{" "}
             with {MILK_ML} ml full cream milk.
           </p>
         </div>
@@ -84,7 +79,7 @@ function OrderSummary() {
       <dl className="mt-4 space-y-1.5 border-t border-cream/20 pt-4 text-sm">
         <div className="flex items-center justify-between gap-4">
           <dt className="text-cream/80">
-            Packs ({formatAud(quote.pricePerServeCents)}/serve × {quote.serves})
+            Serves ({formatAud(quote.pricePerServeCents)}/serve × {quote.serves})
           </dt>
           <dd className="font-semibold tabular-nums">
             {formatAud(quote.subtotalCents)}
@@ -288,7 +283,7 @@ export default function SignUpFooter() {
             Ready to order?
           </h2>
           <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-cream/85">
-            Check the stack, the packs of five, and where it is going. This
+            Check the stack, the serves, and where it is going. This
             pilot order does not take payment. We will confirm delivery with
             you.
           </p>

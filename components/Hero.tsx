@@ -43,7 +43,8 @@ export default function Hero() {
               Black Forest Powerhouse is the only flavour for now, made as the
               Athlete stack: {formatAud(ATHLETE_STACK.priceCents)} per serve,{" "}
               {ATHLETE_STACK.wpiGrams}g chocolate whey protein isolate, and{" "}
-              {CREATINE_GRAMS}g creatine monohydrate. Packs of {SERVES_PER_PACK}.
+              {CREATINE_GRAMS}g creatine monohydrate. Packs of {SERVES_PER_PACK}{" "}
+              serves ({formatAud(ATHLETE_STACK.priceCents * SERVES_PER_PACK)}).
               Rip, pour, blend.
             </p>
 

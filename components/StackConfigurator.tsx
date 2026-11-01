@@ -44,10 +44,10 @@ function AthletePanel() {
         <li>
           {CREATINE_GRAMS}g {CREATINE_LABEL}
         </li>
-        <li>Black Forest Powerhouse base in every pouch</li>
+        <li>Black Forest Powerhouse base in every serve</li>
       </ul>
       <p className="mt-4 text-sm font-semibold leading-relaxed text-terracotta-dark">
-        {ATHLETE_NUTRITION.pouchLabel} protein in the pouch, and{" "}
+        {ATHLETE_NUTRITION.pouchLabel} protein per serve, and{" "}
         {ATHLETE_NUTRITION.withMilkLabel} with {NUTRITION.milkMl} ml full cream
         milk.
       </p>
@@ -124,18 +124,17 @@ export default function StackConfigurator() {
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
               <h3 className="font-display text-xl font-semibold text-terracotta-dark">
-                Packs of {SERVES_PER_PACK}
+                Serves
               </h3>
               <p className="mt-1 text-sm text-ink/70">
-                {quote.packs} {quote.packs === 1 ? "pack" : "packs"} ·{" "}
-                {quote.serves} serves · {formatAud(quote.pricePerServeCents)} per
-                serve
+                {formatAud(quote.pricePerServeCents)} per serve · packs of{" "}
+                {SERVES_PER_PACK} ({formatAud(quote.packPriceCents)})
               </p>
             </div>
             <div className="flex items-center gap-1.5">
               <button
                 type="button"
-                aria-label="Fewer packs"
+                aria-label={`Remove ${SERVES_PER_PACK} serves`}
                 onClick={config.decrementPacks}
                 disabled={!config.canDecrementPacks}
                 className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-lg border-2 border-terracotta-dark/30 bg-cream text-terracotta-dark transition duration-300 ease-in-out hover:border-terracotta-dark disabled:opacity-40"
@@ -143,11 +142,11 @@ export default function StackConfigurator() {
                 <Minus className="h-4 w-4" />
               </button>
               <span className="min-w-[40px] text-center font-display text-2xl font-semibold tabular-nums text-terracotta-dark">
-                {quote.packs}
+                {quote.serves}
               </span>
               <button
                 type="button"
-                aria-label="More packs"
+                aria-label={`Add ${SERVES_PER_PACK} serves`}
                 onClick={config.incrementPacks}
                 disabled={!config.canIncrementPacks}
                 className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-lg border-2 border-terracotta-dark/30 bg-cream text-terracotta-dark transition duration-300 ease-in-out hover:border-terracotta-dark disabled:opacity-40"
@@ -158,7 +157,8 @@ export default function StackConfigurator() {
           </div>
           {!config.canIncrementPacks && (
             <p className="mt-3 text-xs text-ink/60">
-              {PACK_MAX} packs is the most one pilot order can include.
+              {PACK_MAX * SERVES_PER_PACK} serves is the most one pilot order
+              can include.
             </p>
           )}
         </div>
@@ -177,7 +177,7 @@ export default function StackConfigurator() {
               {quote.flavourName} · {quote.stack.name}
             </span>
             <span className="text-sm tabular-nums text-cream/80">
-              {quote.packs} × {SERVES_PER_PACK} serves
+              {quote.serves} serves
             </span>
           </div>
           <p className="mt-1 text-xs leading-relaxed text-cream/75">
